@@ -9,7 +9,7 @@
 ?>
 
 <form action="" method="GET">
-    <select name="ordem" id="">
+    <select name="ordem" id="" onchange="this.form.submit()"> //onchange atualiza a página quando selecionado
         <option></option>
         <option value="nome">Por nome</option>
         <option value="idade">Por idade</option>
