@@ -6,13 +6,21 @@
         echo "ERRO: ".$e->getMessage();
         exit;
     }
+
+    if(isset($_GET['ordem']) && empty($_GET['ordem']) == false){ //se existir o parâmetro ordem e não for vazio
+        $ordem = addslashes($_GET['ordem']); //addslashes para evitar SQL Injection
+        $sql = "SELECT * FROM usuarios ORDER BY ".$ordem; //ORDER BY nome
+    } else { //se não existir o parâmetro ordem ou se for vazio
+        $ordem = ""; //ordem vazia
+        $sql = "SELECT * FROM usuarios"; //se não existir o parâmetro ordem, listar todos os usuários
+    }
 ?>
 
 <form action="" method="GET">
     <select name="ordem" id="" onchange="this.form.submit()"> //onchange atualiza a página quando selecionado
         <option></option>
-        <option value="nome">Por nome</option>
-        <option value="idade">Por idade</option>
+        <option value="nome" <?php echo ($ordem)=="nome"?'selected="selected"':'';?>>Por nome</option> //se a ordem for igual a nome, selecionado
+        <option value="idade" <?php echo ($ordem)=="idade"?'selected="selected"':'';?>>Por idade</option> //se a ordem for igual a idade, selecionado
     </select>
 </form>
 
@@ -22,13 +30,6 @@
         <th>Idade</th>
     </tr>
     <?php
-        
-        if(isset($_GET['ordem']) && empty($_GET['ordem']) == false){ //se existir o parâmetro ordem e não for vazio
-            $ordem = addslashes($_GET['ordem']); //addslashes para evitar SQL Injection
-            $sql = "SELECT * FROM usuarios ORDER BY ".$ordem; //ORDER BY nome
-        } else { //se não existir o parâmetro ordem ou se for vazio
-            $sql = "SELECT * FROM usuarios"; //se não existir o parâmetro ordem, listar todos os usuários
-        }
 
         $sql = "SELECT * FROM usuarios"; //consulta a tabela usuarios
         $sql = $pdo->query($sql); //executa a consulta
