@@ -1,2 +1,1 @@
-# Projeto-Ordena-o-de-Resultados
-Projeto de ordenação de resultados contruido em PHP
+### Projeto de ordenação de resultados construído em PHP e MySQL
