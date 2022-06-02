@@ -22,6 +22,14 @@
         <th>Idade</th>
     </tr>
     <?php
+        
+        if(isset($_GET['ordem']) && empty($_GET['ordem']) == false){ //se existir o parâmetro ordem e não for vazio
+            $ordem = addslashes($_GET['ordem']); //addslashes para evitar SQL Injection
+            $sql = "SELECT * FROM usuarios ORDER BY ".$ordem; //ORDER BY nome
+        } else { //se não existir o parâmetro ordem ou se for vazio
+            $sql = "SELECT * FROM usuarios"; //se não existir o parâmetro ordem, listar todos os usuários
+        }
+
         $sql = "SELECT * FROM usuarios"; //consulta a tabela usuarios
         $sql = $pdo->query($sql); //executa a consulta
         if($sql->rowCount() > 0) { //se tiver mais de uma linha
